@@ -38,9 +38,9 @@ impl Handler for PageNotFoundHandler {
 
 impl Handler for StaticPageHandler {
     fn handle(req: &HttpRequest) -> HttpResponse {
-    //     요청 받은 정적 페이지의 경로를 얻는다.
+        //     요청 받은 정적 페이지의 경로를 얻는다.
         let http::httprequest::Resource::Path(s) = &req.resource;
-    //     URI를 파싱한다.
+        //     URI를 파싱한다.
         let route: Vec<&str> = s.split("/").collect();
         match route[1] {
             "" => HttpResponse::new("200", None, Self::load_file("index.html")),
@@ -78,19 +78,19 @@ impl WebServiceHandler {
 // Handler 트레이트를 구현
 impl Handler for WebServiceHandler {
     fn handle(req: &HttpRequest) -> HttpResponse {
-    let http::httprequest::Resource::Path(s) = &req.resource;
+        let http::httprequest::Resource::Path(s) = &req.resource;
 
-//         URI 파싱
-        let route : Vec<&str> = s.split("/").collect();
+        //         URI 파싱
+        let route: Vec<&str> = s.split("/").collect();
         // /api/shipping/orders 와 같은 uri 고려
         match route[2] {
-            "shipping" if route.len() > 2 &&  route[3] == "orders" => {
+            "shipping" if route.len() > 2 && route[3] == "orders" => {
                 let body = Some(serde_json::to_string(&Self::load_json()).unwrap());
-                let mut headers : HashMap<&str, &str> = HashMap::new();
+                let mut headers: HashMap<&str, &str> = HashMap::new();
                 headers.insert("Content-Type", "application/json");
                 HttpResponse::new("200", Some(headers), body)
             }
             _ => HttpResponse::new("404", None, Self::load_file("404.html")),
         }
-}
+    }
 }

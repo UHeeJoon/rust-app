@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::io::{Result, Write};
+
 #[derive(Debug, PartialEq, Clone)]
 pub struct HttpResponse<'a> {
     version: &'a str,
@@ -8,6 +9,7 @@ pub struct HttpResponse<'a> {
     headers: Option<HashMap<&'a str, &'a str>>,
     body: Option<String>,
 }
+
 impl<'a> Default for HttpResponse<'a> {
     fn default() -> Self {
         Self {
@@ -19,6 +21,7 @@ impl<'a> Default for HttpResponse<'a> {
         }
     }
 }
+
 impl<'a> HttpResponse<'a> {
     pub fn new(
         status_code: &'a str,
@@ -54,6 +57,7 @@ impl<'a> HttpResponse<'a> {
         Ok(())
     }
 }
+
 impl<'a> HttpResponse<'a> {
     fn version(&self) -> &str {
         self.version
@@ -79,6 +83,7 @@ impl<'a> HttpResponse<'a> {
         }
     }
 }
+
 impl<'a> From<HttpResponse<'a>> for String {
     fn from(res: HttpResponse) -> String {
         let res1 = res.clone();
@@ -93,9 +98,11 @@ impl<'a> From<HttpResponse<'a>> for String {
         )
     }
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
     fn test_response_struct_creation_200() {
         let response_actual = HttpResponse::new(
@@ -116,6 +123,7 @@ mod tests {
         };
         assert_eq!(response_actual, response_expected);
     }
+
     #[test]
     fn test_response_struct_creation_404() {
         let response_actual = HttpResponse::new(
@@ -136,6 +144,7 @@ mod tests {
         };
         assert_eq!(response_actual, response_expected);
     }
+
     #[test]
     fn test_http_response_creation() {
         let response_expected = HttpResponse {
