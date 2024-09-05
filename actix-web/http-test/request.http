@@ -1,0 +1,17 @@
+### GET 상태체크
+GET http://localhost:3000/health
+
+### POST 강의 삽입
+POST http://localhost:3000/courses/
+Content-Type: application/json
+
+{
+  "tutor_id" : 1,
+  "course_name": "first-course"
+}
+
+### GET 강의 조회
+GET http://localhost:3000/courses/1
+
+### GET 강의 상세 정보
+GET http://localhost:3000/courses/1/1
