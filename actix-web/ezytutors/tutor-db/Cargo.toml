@@ -4,3 +4,27 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+# Actix 웹 프레임워크와 런타임
+actix-web = "4.9.0"
+actix-rt = "2.10.0"
+# 환경 변수 접근 라이브러리
+dotenv = "0.15.0"
+
+# PostgreSql 접근 라이브러리
+# PostgreSql은 오픈소스 관계형 데이터베이스로 확장성, 안전성, 기능 및 대규모의 복잡한 데이터 작업을 처리하는데 뛰어남
+# sqlx는 Rust로 작성된 SQL query를 쉽게, type-safe, and idiomatic manner로 작성할 수 있도록 도와줍니다.
+# sqlx는 컴파일 시간에 쿼리를 확인하며, 내장 커넥션 풀을 제공하고 Postgres에 대한 비동기 커넥션을 반환한다.
+sqlx = {version = "0.8.2", default-features = false, features = ["runtime-tokio", "postgres", "chrono", "macros"] }
+sqlx-cli = {version = "0.8.2", default-features = false, features = ["postgres", "native-tls"] }
+
+# 데이터 직렬화 라이브러리
+serde = { version = "1.0.210", features = ["derive"] }
+
+# 기타 유틸리티
+chrono = { version = "0.4.38", features = ["serde"]}
+
+# 빌드를 위한 Openssl이 개발 서버에 설치되어 있지 않은 경우
+openssl = {version = "0.10.66", features = ["vendored"]}
+
+# sqlx-cli 설치함
+#https://github.com/launchbadge/sqlx/blob/main/sqlx-cli/README.md
